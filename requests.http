@@ -1,0 +1,34 @@
+@base = http://localhost:3000/api
+@token = paste-login-token-here
+
+### Register once
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{"email":"student1@example.com","password":"password123"}
+
+### Login
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{"email":"student1@example.com","password":"password123"}
+
+### Public list
+GET {{base}}/students
+
+### Add (copy token from login above)
+POST {{base}}/students
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{"name":"Test Student","major":"Information Technology","score":85}
+
+### Delete (replace id with the created _id)
+DELETE {{base}}/students/replace-with-student-id
+Authorization: Bearer {{token}}
+
+### Must return 401
+POST {{base}}/students
+Content-Type: application/json
+
+{"name":"Unauthorized","major":"IT","score":70}
